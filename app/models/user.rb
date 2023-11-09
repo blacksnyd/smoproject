@@ -1,14 +1,10 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :trackable
-
   geocoded_by :current_sign_in_ip
   after_validation :geocode, if: :current_sign_in_ip_changed?
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-          :trackable
+         :trackable
 
   has_and_belongs_to_many :guardings
   belongs_to :admin_user, optional: true
