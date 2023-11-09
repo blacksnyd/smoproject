@@ -11,7 +11,7 @@ class User < ApplicationRecord
           :trackable
 
   has_and_belongs_to_many :guardings
-  belongs_to :admin_user
+  belongs_to :admin_user, optional: true
 
   def within_one_km_of_guarding?(guarding)
     user_coordinates = [self.latitude, self.longitude]
