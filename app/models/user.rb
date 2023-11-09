@@ -1,6 +1,14 @@
 class User < ApplicationRecord
-  geocoded_by :current_sign_in_ip
+# Geocoded latitude and longitude
+    geocoded_by :current_sign_in_ip do |user, results|
+      if geo = results.first
+        user.latitude = geo.latitude
+        user.longitude = geo.longitude
+      end
+    end
+
   after_validation :geocode, if: :current_sign_in_ip_changed?
+
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
